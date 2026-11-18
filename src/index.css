@@ -1,1 +1,46 @@
-@import 'tailwindcss'
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;500;600;700&family=Poppins:wght@600;800&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Barlow Semi Condensed", system-ui, sans-serif;
+  --font-display: "Poppins", "Barlow Semi Condensed", sans-serif;
+
+  --animate-marquee: marquee 40s linear infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+}
+
+:root {
+  /* Police Zebra palette */
+  --navy: #0b294d;
+  --black: #080808;
+  --ivory: #f7f5f0;
+  --white: #ffffff;
+  --champagne: #b9a98a;
+  --grey: #777777;
+  --border: #e8e5df;
+}
+
+@layer base {
+  body {
+    background: var(--ivory);
+    color: var(--black);
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation: none !important;
+  }
+}
