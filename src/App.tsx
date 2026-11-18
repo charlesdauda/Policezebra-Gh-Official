@@ -5,6 +5,7 @@ import Footer from "./components/Footer";
 import Shop from "./Pages/Shop";
 import Contact from "./Pages/Contact";
 import Cart from "./Pages/Cart";
+import ScrollToTop from "./components/ScrollToTop";
 
 const App = () => {
   const { pathname } = useLocation();
@@ -12,6 +13,7 @@ const App = () => {
 
   return (
     <>
+      <ScrollToTop />
       {!isAccountPage && <Header />}
       <main>
         <Routes>
