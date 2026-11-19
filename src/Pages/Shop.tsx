@@ -1,4 +1,5 @@
 import PageHeader from "../components/PageHeader";
+import ShopProducts from "../components/ShopProducts";
 
 const Shop = () => {
   return (
@@ -10,7 +11,7 @@ const Shop = () => {
         description="Browse unisex essentials, menswear and womenswear. Find your fit and make it yours."
         crumb="Shop"
       />
-      {/* products go here */}
+      <ShopProducts />
     </>
   );
 };

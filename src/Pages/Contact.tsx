@@ -1,3 +1,6 @@
+import ContactConnect from "../components/ContactConnect";
+import ContactLocations from "../components/ContactLocations";
+import ContactMap from "../components/ContactMap";
 import PageHeader from "../components/PageHeader";
 
 const Contact = () => {
@@ -10,7 +13,9 @@ const Contact = () => {
         description="Questions about an order, sizing or the collection? Reach us however works best for you. We usually reply fast."
         crumb="Contact"
       />
-      {/* contact form goes here */}
+      <ContactLocations />
+      <ContactMap />
+      <ContactConnect />
     </>
   );
 };

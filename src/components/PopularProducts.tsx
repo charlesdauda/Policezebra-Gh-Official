@@ -1,14 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { PointerEvent } from "react";
 import { Link } from "react-router-dom";
-
-// Replace with your own product photos (rename the files or change the paths)
-import p1 from "../assets/images/essentials.png";
-import p2 from "../assets/images/essentials.png";
-import p3 from "../assets/images/essentials.png";
-import p4 from "../assets/images/essentials.png";
-import p5 from "../assets/images/essentials.png";
-import p6 from "../assets/images/essentials.png";
+import { PRODUCT_BY_ID, POPULAR_IDS } from "../data/products";
 
 interface Product {
   id: string;
@@ -20,14 +13,19 @@ interface Product {
   badge?: string;
 }
 
-const PRODUCTS: Product[] = [
-  { id: "zebra-classic-tee", brand: "Police Zebra", name: "Zebra Classic Tee", price: 120, image: p1, badge: "Trending" },
-  { id: "essential-hoodie", brand: "Police Zebra", name: "Essential Unisex Hoodie", price: 280, image: p2, badge: "Bestseller" },
-  { id: "relaxed-denim-shorts", brand: "Police Zebra", name: "Relaxed Denim Shorts", price: 160, oldPrice: 200, image: p3 },
-  { id: "oversized-navy-tee", brand: "Police Zebra", name: "Oversized Navy Tee", price: 130, image: p4 },
-  { id: "everyday-cap", brand: "Police Zebra", name: "Everyday Cap", price: 90, image: p5, badge: "New" },
-  { id: "weekend-jogger", brand: "Police Zebra", name: "Weekend Jogger", price: 210, image: p6 },
-];
+// Built from the shared product list, so ids and prices always match the shop
+const PRODUCTS: Product[] = POPULAR_IDS.map((id) => {
+  const p = PRODUCT_BY_ID[id];
+  return {
+    id: p.id,
+    brand: p.brand,
+    name: p.name,
+    price: p.ghs,
+    oldPrice: p.oldGhs,
+    image: p.image,
+    badge: p.badge,
+  };
+});
 
 const AUTO_MS = 4000;
 const PAUSE_MS = 6000;
@@ -52,13 +50,11 @@ const ProductCard = ({
   open,
   onToggle,
   onQuickView,
-  onAddToCart,
 }: {
   p: Product;
   open: boolean;
   onToggle: () => void;
   onQuickView: (p: Product) => void;
-  onAddToCart?: (p: Product) => void;
 }) => (
   <article
     data-card
@@ -88,14 +84,14 @@ const ProductCard = ({
           e.stopPropagation();
           onQuickView(p);
         }}
-        className="pointer-events-none absolute bottom-14 right-0 z-10 translate-y-2 bg-(--white) px-5 py-3.5 text-[13px] font-semibold uppercase tracking-[0.06em] text-(--black) opacity-0 transition-all duration-300 hover:bg-(--navy) hover:text-(--white) focus-visible:translate-y-0 focus-visible:opacity-100 group-data-[open=true]:pointer-events-auto group-data-[open=true]:translate-y-0 group-data-[open=true]:opacity-100 sm:px-6 sm:py-4 sm:text-[14px] lg:group-hover:pointer-events-auto lg:group-hover:translate-y-0 lg:group-hover:opacity-100"
+        className="pointer-events-none absolute bottom-0 right-0 z-10 translate-y-2 bg-(--white) px-5 py-3.5 text-[13px] font-semibold uppercase tracking-[0.06em] text-(--black) opacity-0 transition-all duration-300 hover:bg-(--navy) hover:text-(--white) focus-visible:translate-y-0 focus-visible:opacity-100 group-data-[open=true]:pointer-events-auto group-data-[open=true]:translate-y-0 group-data-[open=true]:opacity-100 sm:px-6 sm:py-4 sm:text-[14px] lg:group-hover:pointer-events-auto lg:group-hover:translate-y-0 lg:group-hover:opacity-100"
       >
         Quickview
       </button>
     </div>
 
-    {/* Info panel: rises over the image on hover or when opened */}
-    <div className="relative z-1 rounded-t-lg bg-(--white) p-5 transition-transform duration-300 group-data-[open=true]:-translate-y-14 lg:group-hover:-translate-y-14 lg:group-focus-within:-translate-y-14">
+    {/* Info panel */}
+    <div className="relative z-1 rounded-t-lg bg-(--white) p-5">
       <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-(--grey)">
         {p.brand}
       </p>
@@ -115,28 +111,6 @@ const ProductCard = ({
             Save {money(p.oldPrice - p.price)}
           </span>
         )}
-      </div>
-
-      {/* Actions: sit just below the card and slide into view with the panel */}
-      <div className="absolute inset-x-0 top-full flex h-14 items-center gap-5 px-5">
-        <Link
-          to="/shop"
-          onClick={(e) => e.stopPropagation()}
-          className="border-b-2 border-(--black) pb-0.5 text-[14px] font-bold uppercase tracking-[0.04em] text-(--black) transition-colors hover:border-(--navy) hover:text-(--navy)"
-        >
-          Select options
-        </Link>
-        <button
-          type="button"
-          aria-label={`Add ${p.name} to cart`}
-          onClick={(e) => {
-            e.stopPropagation();
-            onAddToCart?.(p);
-          }}
-          className="flex size-9 items-center justify-center rounded-full text-[22px] text-(--black) transition-colors hover:bg-black/10 hover:text-(--navy)"
-        >
-          <i className="ri-shopping-bag-3-line" aria-hidden="true" />
-        </button>
       </div>
     </div>
   </article>
@@ -203,7 +177,7 @@ const QuickView = ({ p, onClose }: { p: Product; onClose: () => void }) => {
             colour on the product page.
           </p>
           <Link
-            to="/shop"
+            to={`/shop/${p.id}`}
             onClick={onClose}
             className="group mt-4 inline-flex h-11 items-center justify-center gap-2 rounded-md bg-(--navy) px-4 text-[13px] font-semibold uppercase tracking-wider text-(--white) transition-colors hover:bg-[#061a33] sm:mt-6 sm:h-13 sm:gap-2.5 sm:px-7 sm:text-[15px] sm:tracking-[0.06em]"
           >
@@ -217,11 +191,7 @@ const QuickView = ({ p, onClose }: { p: Product; onClose: () => void }) => {
 };
 
 /* ---------- Section ---------- */
-const PopularProducts = ({
-  onAddToCart,
-}: {
-  onAddToCart?: (p: Product) => void;
-}) => {
+const PopularProducts = () => {
   const trackRef = useRef<HTMLDivElement>(null);
   const hovering = useRef(false);
   const lastTouch = useRef(0);
@@ -329,7 +299,6 @@ const PopularProducts = ({
                   open={openId === p.id}
                   onToggle={() => toggleCard(p.id)}
                   onQuickView={setQuick}
-                  onAddToCart={onAddToCart}
                 />
               </div>
             ))}
