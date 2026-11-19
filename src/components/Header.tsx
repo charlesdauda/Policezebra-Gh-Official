@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import TopBar from "./TopBar";
 import logo from "../assets/images/policelogo.png";
+import { useCart } from "../context/useCart";
 
 const LINKS = [
   { label: "Home", to: "/" },
@@ -9,15 +10,12 @@ const LINKS = [
   { label: "Contact", to: "/contact" },
 ];
 
-interface HeaderProps {
-  cartCount?: number;
-}
-
 const iconBtn =
   "relative w-11 h-11 rounded-full inline-flex items-center justify-center text-[22px] text-[var(--black)] transition-colors duration-200 hover:bg-black/10";
 
-const Header = ({ cartCount = 0 }: HeaderProps) => {
+const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { count } = useCart();
 
   // lock scroll when the mobile drawer is open
   useEffect(() => {
@@ -79,10 +77,14 @@ const Header = ({ cartCount = 0 }: HeaderProps) => {
 
             {/* Right: cart, account */}
             <div className="flex items-center justify-end gap-4 max-[900px]:gap-1 justify-self-end">
-              <Link to="/cart" className={iconBtn} aria-label="Cart">
+              <Link
+                to="/cart"
+                className={iconBtn}
+                aria-label={`Cart, ${count} ${count === 1 ? "item" : "items"}`}
+              >
                 <i className="ri-shopping-bag-3-line" />
                 <span className="absolute top-1 right-0.5 min-w-4.5 h-4.5 px-1.25 rounded-[9px] bg-(--navy) text-(--white) text-[11px] font-bold flex items-center justify-center">
-                  {cartCount}
+                  {count > 99 ? "99+" : count}
                 </span>
               </Link>
 
