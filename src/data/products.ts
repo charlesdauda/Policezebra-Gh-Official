@@ -1,5 +1,61 @@
-// Placeholder image for every product (swap per product later)
-import essentialsImg from "../assets/images/essentials.png";
+/* ======================================================================
+   PRODUCT IMAGES
+   Every product has its own import line. All of them point to the
+   placeholder essentials.png for now.
+   TO REPLACE AN IMAGE: change only the file path on that product's line,
+   e.g.  import sneaker1 from "../assets/images/court-low-sneaker.png";
+
+   EXTRA PHOTOS (optional): add more imports such as
+     import sneaker1b from "../assets/images/court-low-sneaker-2.png";
+   then pass them in that product's item(...) call at the bottom:
+     item(..., 450, sneaker1, { gallery: [sneaker1b] })
+   ====================================================================== */
+
+/* ---------- Jeans & trousers ---------- */
+import jeans1 from "../assets/images/essentials.png"; // Straight leg jeans
+import jeans2 from "../assets/images/essentials.png"; // Relaxed chinos
+import jeans3 from "../assets/images/essentials.png"; // Weekend jogger
+
+/* ---------- Sneakers ---------- */
+import sneaker1 from "../assets/images/essentials.png"; // Court low sneaker
+import sneaker2 from "../assets/images/essentials.png"; // Zebra runner
+
+/* ---------- Graphic tees ---------- */
+import tee1 from "../assets/images/essentials.png"; // Zebra classic tee
+import tee2 from "../assets/images/essentials.png"; // Oversized navy tee
+
+/* ---------- Hoodies & jackets ---------- */
+import hoodie1 from "../assets/images/essentials.png"; // Essential unisex hoodie
+import jacket1 from "../assets/images/essentials.png"; // Coach jacket
+
+/* ---------- Shorts ---------- */
+import shorts1 from "../assets/images/essentials.png"; // Relaxed denim shorts
+import shorts2 from "../assets/images/essentials.png"; // Weekend shorts
+import shorts3 from "../assets/images/essentials.png"; // Track shorts
+
+/* ---------- Jorts ---------- */
+import jorts1 from "../assets/images/essentials.png"; // Relaxed denim jorts
+import jorts2 from "../assets/images/essentials.png"; // Faded black jorts
+
+/* ---------- Caps ---------- */
+import cap1 from "../assets/images/essentials.png"; // Everyday cap
+import cap2 from "../assets/images/essentials.png"; // Zebra dad cap
+
+/* ---------- Socks ---------- */
+import socks1 from "../assets/images/essentials.png"; // Crew socks, 3 pack
+import socks2 from "../assets/images/essentials.png"; // Striped sport socks
+
+/* ---------- Slides ---------- */
+import slides1 from "../assets/images/essentials.png"; // Cloud slides
+import slides2 from "../assets/images/essentials.png"; // Zebra logo slides
+
+/* ---------- Backpacks ---------- */
+import backpack1 from "../assets/images/essentials.png"; // City backpack
+import backpack2 from "../assets/images/essentials.png"; // Mini backpack
+
+/* ---------- Duffel bags ---------- */
+import duffel1 from "../assets/images/essentials.png"; // Weekender duffel
+import duffel2 from "../assets/images/essentials.png"; // Gym duffel
 
 export interface ProductColor {
   name: string;
@@ -16,7 +72,8 @@ export interface Product {
   eur: number; // euro price (change per product whenever you like)
   oldGhs?: number; // optional crossed-out price
   badge?: string; // optional label, e.g. "New"
-  image: string;
+  image: string; // main photo
+  gallery: string[]; // main photo first, then any extra photos
   colors: ProductColor[]; // colours shown on the product page
   sizes: string[]; // sizes shown on the product page
 }
@@ -65,27 +122,35 @@ const item = (
   name: string,
   description: string,
   ghs: number,
-  extra: { oldGhs?: number; badge?: string } = {}
-): Product => ({
-  id,
-  brand: "Police Zebra",
-  category,
-  name,
-  description,
-  ghs,
-  eur: Math.round(ghs * EUR_RATE),
-  image: essentialsImg,
-  colors: COLORS,
-  sizes: SIZES_BY_CATEGORY[category] ?? CLOTHING_SIZES,
-  ...extra,
-});
+  image: string,
+  extra: { oldGhs?: number; badge?: string; gallery?: string[] } = {}
+): Product => {
+  const { gallery, ...rest } = extra;
+  return {
+    id,
+    brand: "Police Zebra",
+    category,
+    name,
+    description,
+    ghs,
+    eur: Math.round(ghs * EUR_RATE),
+    image,
+    // With real extra photos: main photo + those photos.
+    // Without any yet: the main photo is repeated 4 times as a placeholder.
+    gallery: gallery?.length ? [image, ...gallery] : [image, image, image, image],
+    colors: COLORS,
+    sizes: SIZES_BY_CATEGORY[category] ?? CLOTHING_SIZES,
+    ...rest,
+  };
+};
 
 /* ======================================================================
    CATEGORIES AND PRODUCTS
    Each category block contains only that category's products.
-   To add a product, copy a line inside the right category.
+   To add a product: add an import above, then copy a line inside the
+   right category and use your new image variable.
    To add a category, copy a whole block and give it a new id and label.
-   Product ids must be unique (the cart and checkout will use them).
+   Product ids must be unique (the cart and checkout use them).
    ====================================================================== */
 export const CATEGORIES: Category[] = [
   /* ---------- JEANS & TROUSERS ---------- */
@@ -93,9 +158,9 @@ export const CATEGORIES: Category[] = [
     id: "jeans-trousers",
     label: "Jeans & trousers",
     products: [
-      item("Jeans & trousers", "straight-leg-jeans", "Straight leg jeans", "Classic fit in washed indigo denim.", 320),
-      item("Jeans & trousers", "relaxed-chinos", "Relaxed chinos", "Soft cotton twill with an easy cut.", 280),
-      item("Jeans & trousers", "weekend-jogger", "Weekend jogger", "Soft brushed cotton with a tapered leg.", 210),
+      item("Jeans & trousers", "straight-leg-jeans", "Straight leg jeans", "Classic fit in washed indigo denim.", 320, jeans1),
+      item("Jeans & trousers", "relaxed-chinos", "Relaxed chinos", "Soft cotton twill with an easy cut.", 280, jeans2),
+      item("Jeans & trousers", "weekend-jogger", "Weekend jogger", "Soft brushed cotton with a tapered leg.", 210, jeans3),
     ],
   },
 
@@ -104,8 +169,8 @@ export const CATEGORIES: Category[] = [
     id: "sneakers",
     label: "Sneakers",
     products: [
-      item("Sneakers", "court-low-sneaker", "Court low sneaker", "Clean leather upper for everyday wear.", 450),
-      item("Sneakers", "zebra-runner", "Zebra runner", "Light cushioned sole with a bold finish.", 520),
+      item("Sneakers", "court-low-sneaker", "Court low sneaker", "Clean leather upper for everyday wear.", 450, sneaker1),
+      item("Sneakers", "zebra-runner", "Zebra runner", "Light cushioned sole with a bold finish.", 520, sneaker2),
     ],
   },
 
@@ -114,8 +179,8 @@ export const CATEGORIES: Category[] = [
     id: "graphic-tees",
     label: "Graphic tees",
     products: [
-      item("Graphic tees", "zebra-classic-tee", "Zebra classic tee", "Heavy cotton with the signature zebra print.", 120, { badge: "Trending" }),
-      item("Graphic tees", "oversized-navy-tee", "Oversized navy tee", "Relaxed drop shoulder fit.", 130),
+      item("Graphic tees", "zebra-classic-tee", "Zebra classic tee", "Heavy cotton with the signature zebra print.", 120, tee1, { badge: "Trending" }),
+      item("Graphic tees", "oversized-navy-tee", "Oversized navy tee", "Relaxed drop shoulder fit.", 130, tee2),
     ],
   },
 
@@ -124,8 +189,8 @@ export const CATEGORIES: Category[] = [
     id: "hoodies-jackets",
     label: "Hoodies & jackets",
     products: [
-      item("Hoodies & jackets", "essential-hoodie", "Essential unisex hoodie", "Brushed fleece lining, made to be shared.", 280, { badge: "Bestseller" }),
-      item("Hoodies & jackets", "coach-jacket", "Coach jacket", "Lightweight layer with snap buttons.", 360),
+      item("Hoodies & jackets", "essential-hoodie", "Essential unisex hoodie", "Brushed fleece lining, made to be shared.", 280, hoodie1, { badge: "Bestseller" }),
+      item("Hoodies & jackets", "coach-jacket", "Coach jacket", "Lightweight layer with snap buttons.", 360, jacket1),
     ],
   },
 
@@ -134,9 +199,9 @@ export const CATEGORIES: Category[] = [
     id: "shorts",
     label: "Shorts",
     products: [
-      item("Shorts", "relaxed-denim-shorts", "Relaxed denim shorts", "Washed denim with a loose, easy fit.", 160, { oldGhs: 200 }),
-      item("Shorts", "weekend-shorts", "Weekend shorts", "Breathable cotton with an elastic waist.", 150),
-      item("Shorts", "track-shorts", "Track shorts", "Quick dry fabric for active days.", 140),
+      item("Shorts", "relaxed-denim-shorts", "Relaxed denim shorts", "Washed denim with a loose, easy fit.", 160, shorts1, { oldGhs: 200 }),
+      item("Shorts", "weekend-shorts", "Weekend shorts", "Breathable cotton with an elastic waist.", 150, shorts2),
+      item("Shorts", "track-shorts", "Track shorts", "Quick dry fabric for active days.", 140, shorts3),
     ],
   },
 
@@ -145,8 +210,8 @@ export const CATEGORIES: Category[] = [
     id: "jorts",
     label: "Jorts",
     products: [
-      item("Jorts", "relaxed-denim-jorts", "Relaxed denim jorts", "Knee length with a loose fit.", 190),
-      item("Jorts", "faded-black-jorts", "Faded black jorts", "Washed black denim, worn in feel.", 200),
+      item("Jorts", "relaxed-denim-jorts", "Relaxed denim jorts", "Knee length with a loose fit.", 190, jorts1),
+      item("Jorts", "faded-black-jorts", "Faded black jorts", "Washed black denim, worn in feel.", 200, jorts2),
     ],
   },
 
@@ -155,8 +220,8 @@ export const CATEGORIES: Category[] = [
     id: "caps",
     label: "Caps",
     products: [
-      item("Caps", "everyday-cap", "Everyday cap", "Six panel cotton cap, adjustable strap.", 90, { badge: "New" }),
-      item("Caps", "zebra-dad-cap", "Zebra dad cap", "Curved brim with embroidered logo.", 100),
+      item("Caps", "everyday-cap", "Everyday cap", "Six panel cotton cap, adjustable strap.", 90, cap1, { badge: "New" }),
+      item("Caps", "zebra-dad-cap", "Zebra dad cap", "Curved brim with embroidered logo.", 100, cap2),
     ],
   },
 
@@ -165,8 +230,8 @@ export const CATEGORIES: Category[] = [
     id: "socks",
     label: "Socks",
     products: [
-      item("Socks", "crew-socks-3-pack", "Crew socks, 3 pack", "Soft cotton blend in classic colours.", 60),
-      item("Socks", "striped-sport-socks", "Striped sport socks", "Cushioned heel and arch support.", 45),
+      item("Socks", "crew-socks-3-pack", "Crew socks, 3 pack", "Soft cotton blend in classic colours.", 60, socks1),
+      item("Socks", "striped-sport-socks", "Striped sport socks", "Cushioned heel and arch support.", 45, socks2),
     ],
   },
 
@@ -175,8 +240,8 @@ export const CATEGORIES: Category[] = [
     id: "slides",
     label: "Slides",
     products: [
-      item("Slides", "cloud-slides", "Cloud slides", "Soft foam footbed, easy to slip on.", 130),
-      item("Slides", "zebra-logo-slides", "Zebra logo slides", "Waterproof strap with a raised logo.", 150),
+      item("Slides", "cloud-slides", "Cloud slides", "Soft foam footbed, easy to slip on.", 130, slides1),
+      item("Slides", "zebra-logo-slides", "Zebra logo slides", "Waterproof strap with a raised logo.", 150, slides2),
     ],
   },
 
@@ -185,8 +250,8 @@ export const CATEGORIES: Category[] = [
     id: "backpacks",
     label: "Backpacks",
     products: [
-      item("Backpacks", "city-backpack", "City backpack", "Padded laptop sleeve and two pockets.", 340),
-      item("Backpacks", "mini-backpack", "Mini backpack", "Compact size for everyday essentials.", 240),
+      item("Backpacks", "city-backpack", "City backpack", "Padded laptop sleeve and two pockets.", 340, backpack1),
+      item("Backpacks", "mini-backpack", "Mini backpack", "Compact size for everyday essentials.", 240, backpack2),
     ],
   },
 
@@ -195,13 +260,13 @@ export const CATEGORIES: Category[] = [
     id: "duffel-bags",
     label: "Duffel bags",
     products: [
-      item("Duffel bags", "weekender-duffel", "Weekender duffel", "Roomy canvas bag with a shoulder strap.", 380),
-      item("Duffel bags", "gym-duffel", "Gym duffel", "Water resistant with a shoe compartment.", 320),
+      item("Duffel bags", "weekender-duffel", "Weekender duffel", "Roomy canvas bag with a shoulder strap.", 380, duffel1),
+      item("Duffel bags", "gym-duffel", "Gym duffel", "Water resistant with a shoe compartment.", 320, duffel2),
     ],
   },
 ];
 
-/* ---------- Shared helpers (shop, home page, and later cart and checkout) ---------- */
+/* ---------- Shared helpers (shop, home page, cart and checkout) ---------- */
 
 // Every product in one list (the order here is treated as "newest")
 export const ALL_PRODUCTS: Product[] = CATEGORIES.flatMap((c) => c.products);
