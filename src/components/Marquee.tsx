@@ -1,6 +1,6 @@
 const ITEMS = [
   { icon: "ri-truck-line", text: "Fast delivery nationwide" },
-  { icon: "ri-arrow-go-back-line", text: "Easy 14-day returns" },
+  { icon: "ri-arrow-go-back-line", text: "Easy order returns" },
   { icon: "ri-shirt-line", text: "Unisex essentials" },
   { icon: "ri-shield-check-line", text: "Secure payments" },
   { icon: "ri-medal-line", text: "Premium quality since 2008" },

@@ -33,20 +33,20 @@ const Hero = () => {
           <div className="relative z-2 flex flex-col py-6 sm:h-full sm:w-[56%] sm:justify-end sm:px-6 sm:pb-14 sm:pt-0 lg:w-[58%] lg:pb-28">
             <span className="mb-4 inline-flex items-center gap-2 self-start rounded-full bg-(--white) px-3 py-1.5 text-[11.5px] font-semibold uppercase tracking-[0.08em] sm:mb-5 sm:px-3.5 sm:py-1.75 sm:text-[13px]">
               <i className="ri-sparkling-2-line text-(--navy)" aria-hidden="true" />
-              New season · Unisex essentials
+             New 2026 Collection Live Now
             </span>
 
-            <h1 className="flex font-display text-[clamp(44px,14vw,68px)] leading-[0.95] tracking-[-0.045em] lowercase sm:text-[clamp(52px,8vw,72px)] lg:text-[clamp(56px,6.4vw,100px)]">
+            <h1 className="flex font-display text-[clamp(44px,14vw,68px)] leading-[0.95] tracking-[-0.045em] space-x-3 sm:text-[clamp(52px,8vw,72px)] lg:text-[clamp(56px,6.4vw,100px)]">
               <span className="font-extrabold text-transparent [-webkit-text-stroke:1.8px_var(--navy)] lg:[-webkit-text-stroke:2px_var(--navy)]">
-                new
+                Latest
               </span>
-              <span className="font-extrabold text-(--navy)">season</span>
+              <span className="font-extrabold text-(--navy)">Drop</span>
             </h1>
 
             <p className="mt-4 max-w-none text-base leading-normal text-(--grey) sm:mt-5 sm:max-w-85 sm:text-[17px] sm:leading-[1.55] lg:mt-5.5 lg:max-w-117.5 lg:text-lg">
-              Clean cuts and easy layers made to be shared. Explore unisex
-              staples alongside dedicated menswear and womenswear, crafted to
-              move with you from morning to midnight.
+             Fresh arrivals, distinctive details and effortless style made for every moment. 
+             Explore the latest unisex staples alongside dedicated menswear and womenswear, 
+             thoughtfully selected to keep you looking sharp from morning to midnight.
             </p>
 
             {/* Buttons: left and right on mobile, inline on larger screens */}
@@ -60,7 +60,7 @@ const Hero = () => {
                 <i className="ri-arrow-right-line transition-transform duration-200 group-hover:translate-x-1" />
               </Link>
               <Link
-                to="/about"
+                to="/https://youtu.be/G5hbAaIJH_8?si=Bax0o52gqtdU6tXQ"
                 className="inline-flex h-12 items-center justify-center rounded-md border-[1.5px] border-(--navy) px-3 text-[13px] font-semibold uppercase tracking-wider sm:h-13 sm:px-7 sm:text-[15px] sm:tracking-[0.06em]"
               >
                 Our story

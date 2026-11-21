@@ -3,7 +3,7 @@ import modelImg from "../assets/images/manhero.png";
 
 const PERKS = [
   { icon: "ri-truck-line", text: "Fast delivery" },
-  { icon: "ri-arrow-go-back-line", text: "14-day returns" },
+  { icon: "ri-arrow-go-back-line", text: "14-days returns" },
   { icon: "ri-shield-check-line", text: "Secure payments" },
 ];
 

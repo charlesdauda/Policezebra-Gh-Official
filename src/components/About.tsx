@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-// Replace with your own image (rename the file or change the path)
 import aboutImg from "../assets/images/about.png";
 
 const STATS = [
@@ -36,7 +35,6 @@ const AUTO_MS = 4000;
 const PAUSE_MS = 6000;
 const MOBILE_QUERY = "(max-width: 639px)";
 
-/* Counts from 0 to the real number when it scrolls into view */
 const CountUp = ({
   to,
   suffix = "",
@@ -103,7 +101,6 @@ const About = () => {
     el.scrollTo({ left: child.offsetLeft, behavior: "smooth" });
   };
 
-  // Track which card is showing (also updates when the user swipes)
   const handleScroll = () => {
     const el = scrollerRef.current;
     if (!el) return;
@@ -139,9 +136,7 @@ const About = () => {
   return (
     <section className="pb-14 pt-14 sm:pb-20 sm:pt-20 lg:pb-24 lg:pt-24">
       <div className="mx-auto w-full max-w-350 px-4 sm:px-6">
-        {/* Intro */}
         <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
-          {/* Image: always shown in full (no cropping), so the head is never cut off */}
           <div className="mx-auto w-full max-w-md overflow-hidden rounded-xl border border-(--border) bg-(--white) sm:max-w-lg lg:mx-0 lg:max-w-125">
             <img
               src={aboutImg}
@@ -150,8 +145,6 @@ const About = () => {
               className="block h-auto w-full"
             />
           </div>
-
-          {/* Copy */}
           <div>
             <span className="mb-4 inline-flex items-center gap-2 text-[13px] font-semibold uppercase tracking-[0.14em] text-(--black)">
               <span className="h-px w-8 bg-(--navy)" aria-hidden="true" />
@@ -184,8 +177,7 @@ const About = () => {
             </div>
           </div>
         </div>
-
-        {/* Stats: navy text, no borders */}
+        
         <dl className="mt-16 grid grid-cols-2 gap-x-4 gap-y-10 sm:mt-20 lg:grid-cols-4">
           {STATS.map((s) => (
             <div key={s.label} className="text-center">
