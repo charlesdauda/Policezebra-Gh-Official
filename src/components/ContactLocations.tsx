@@ -2,25 +2,19 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 const LOCATIONS = [
   {
+    region: "Germany",
+    city: "Berlin",
+    lines: ["Berlin, Germany"]
+  },
+  {
+    region: "Thailand",
+    city: "Bangkok",
+    lines: ["Bangkok, Thailand"],
+  },
+  {
     region: "Ghana",
     city: "Accra",
-    lines: ["Accra Mall, Tetteh Quarshie", "Accra, Ghana"],
-    phone: "+233 00 000 0000",
-    email: "accra@policezebra.com",
-  },
-  {
-    region: "United Kingdom",
-    city: "London",
-    lines: ["00 Example Street", "London, UK"],
-    phone: "+44 00 0000 0000",
-    email: "london@policezebra.com",
-  },
-  {
-    region: "United States",
-    city: "New York",
-    lines: ["00 Example Avenue", "New York, NY 00000"],
-    phone: "+1 000 000 0000",
-    email: "newyork@policezebra.com",
+    lines: ["Accra, Ghana"],
   },
 ];
 
@@ -89,7 +83,6 @@ const ContactLocations = () => {
           </p>
         </div>
 
-        {/* Mobile: one card at a time, auto-scrolling. Tablet/desktop: 3-column grid */}
         <ul
           ref={scrollerRef}
           onScroll={handleScroll}
@@ -119,23 +112,6 @@ const ContactLocations = () => {
                     </span>
                   ))}
                 </address>
-
-                <div className="mt-4 space-y-1.5 border-t border-(--border) pt-4 text-[14px]">
-                  <a
-                    href={`tel:${l.phone.replace(/\s/g, "")}`}
-                    className="flex items-center gap-2.5 text-(--black) transition-colors hover:text-(--navy)"
-                  >
-                    <i className="ri-phone-line text-[16px] text-(--navy)" aria-hidden="true" />
-                    {l.phone}
-                  </a>
-                  <a
-                    href={`mailto:${l.email}`}
-                    className="flex items-center gap-2.5 break-all text-(--black) transition-colors hover:text-(--navy)"
-                  >
-                    <i className="ri-mail-line text-[16px] text-(--navy)" aria-hidden="true" />
-                    {l.email}
-                  </a>
-                </div>
               </div>
             </li>
           ))}

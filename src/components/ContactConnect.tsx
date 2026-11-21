@@ -3,27 +3,21 @@ import { useCallback, useEffect, useRef, useState } from "react";
 const CHANNELS = [
   {
     label: "Phone",
-    handle: "+233 00 000 0000",
+    handle: "+233 24 056 5679",
     icon: "ri-phone-line",
-    href: "tel:+233000000000",
+    href: "tel:+233240565679",
   },
   {
     label: "WhatsApp",
     handle: "Chat with us",
     icon: "ri-whatsapp-line",
-    href: "https://wa.me/233000000000",
+    href: "https://wa.me/233240565679",
   },
   {
     label: "Instagram",
     handle: "@policezebra",
     icon: "ri-instagram-line",
-    href: "https://instagram.com/policezebra",
-  },
-  {
-    label: "Facebook",
-    handle: "Police Zebra",
-    icon: "ri-facebook-fill",
-    href: "https://facebook.com/policezebra",
+    href: "https://www.instagram.com/policezebra",
   },
   {
     label: "TikTok",
@@ -31,6 +25,12 @@ const CHANNELS = [
     icon: "ri-tiktok-fill",
     href: "https://tiktok.com/@policezebra",
   },
+  {
+    label: "Youtube",
+    handle: "@policezebra",
+    icon: "ri-youtube-fill",
+    href: "https://youtu.be/G5hbAaIJH_8?si=eUnVNfd8bRIiVcES"
+  }
 ];
 
 const AUTO_MS = 4000;

@@ -1,5 +1,3 @@
-const MAP_LINK = "https://www.google.com/maps/search/?api=1&query=Accra+Mall";
-
 const ContactMap = () => {
   return (
     <section className="pb-14 sm:pb-20">
@@ -15,15 +13,7 @@ const ContactMap = () => {
             </h2>
           </div>
 
-          <a
-            href={MAP_LINK}
-            target="_blank"
-            rel="noreferrer"
-            className="group inline-flex h-12 items-center justify-center gap-2.5 self-start rounded-md bg-(--navy) px-6 text-[13px] font-semibold uppercase tracking-[0.06em] text-(--white) transition-colors duration-200 hover:bg-[#061a33] sm:h-13 sm:text-[15px]"
-          >
-            Open in Google Maps
-            <i className="ri-arrow-right-up-line transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-          </a>
+          
         </div>
 
         <div className="overflow-hidden rounded-xl border border-(--border) bg-(--white)">

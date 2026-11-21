@@ -1,9 +1,12 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import mugsImg from "../assets/images/mug.png";
+import apronsImg from "../assets/images/apron.png";
+import totesImg from "../assets/images/tote.png";
 
-// Replace with your own photos (rename the files or change the paths)
-import mugsImg from "../assets/images/about.png";
-import apronsImg from "../assets/images/dunmis.png";
-import totesImg from "../assets/images/outfit.png";
+// Where each photo is anchored inside its box.
+// "top" pushes the photo content down so heads show.
+// Fine tune with e.g. "object-[50%_10%]" (0% = very top, 50% = centre).
+const HEAD_POSITION = "object-top origin-top";
 
 const SLIDES = [
   {
@@ -11,18 +14,21 @@ const SLIDES = [
     text: "Your daily brew, made better.",
     image: mugsImg,
     alt: "Police Zebra mugs",
+    position: "object-center",
   },
   {
     title: "Aprons",
     text: "Cook, create and clean up in style.",
     image: apronsImg,
     alt: "Police Zebra aprons",
+    position: HEAD_POSITION,
   },
   {
     title: "Tote bags",
     text: "Carry your day with ease.",
     image: totesImg,
     alt: "Police Zebra tote bags",
+    position: HEAD_POSITION,
   },
 ];
 
@@ -126,7 +132,7 @@ const FeaturedAccessories = () => {
                       src={s.image}
                       alt={s.alt}
                       loading="lazy"
-                      className="absolute inset-0 size-full object-cover"
+                      className={`absolute inset-0 size-full object-cover ${s.position}`}
                     />
                   </div>
                   <h3 className="mt-5 text-[22px] font-semibold uppercase leading-none tracking-[0.01em] text-(--black)">
@@ -169,7 +175,7 @@ const FeaturedAccessories = () => {
                 src={apronsImg}
                 alt="Police Zebra aprons"
                 loading="lazy"
-                className={imgClass}
+                className={`${imgClass} ${HEAD_POSITION}`}
               />
             </div>
             <h3 className="mt-6 text-[22px] font-semibold uppercase leading-none tracking-[0.01em] text-(--black) sm:text-[24px]">
@@ -187,7 +193,7 @@ const FeaturedAccessories = () => {
                 src={totesImg}
                 alt="Police Zebra tote bags"
                 loading="lazy"
-                className={imgClass}
+                className={`${imgClass} ${HEAD_POSITION}`}
               />
             </div>
             <h3 className="mt-6 text-[22px] font-semibold uppercase leading-none tracking-[0.01em] text-(--black) sm:text-[24px]">
