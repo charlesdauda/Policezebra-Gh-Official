@@ -11,13 +11,11 @@ const LINKS = [
 ];
 
 const iconBtn =
-  "relative w-11 h-11 rounded-full inline-flex items-center justify-center text-[22px] text-[var(--black)] transition-colors duration-200 hover:bg-black/10";
+  "relative w-11 h-11 inline-flex items-center justify-center text-[22px] text-[var(--black)]";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const { count } = useCart();
-
-  // lock scroll when the mobile drawer is open
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
     return () => {
@@ -29,14 +27,11 @@ const Header = () => {
 
   return (
     <>
-      {/* TopBar + header stick together */}
       <div className="sticky top-0 z-50">
         <TopBar />
 
         <header className="bg-(--white) text-(--black) border-b border-(--border)">
-          {/* 3 real grid children: left | logo | right */}
           <div className="w-full max-w-350 mx-auto px-6 max-[900px]:px-4 h-24 max-[900px]:h-17 grid grid-cols-[1fr_auto_1fr] items-center">
-            {/* Left: burger (mobile) / nav (desktop) */}
             <div className="flex items-stretch h-full justify-self-start">
               <button
                 className={`${iconBtn} self-center -ml-2.5 min-[901px]:hidden`}
@@ -65,8 +60,6 @@ const Header = () => {
                 ))}
               </nav>
             </div>
-
-            {/* Center: logo */}
             <Link to="/" className="flex items-center justify-center px-4" aria-label="Go to homepage">
               <img
                 className="h-20 w-auto object-contain max-[900px]:h-14"
@@ -74,8 +67,6 @@ const Header = () => {
                 alt="Brand logo"
               />
             </Link>
-
-            {/* Right: cart, account */}
             <div className="flex items-center justify-end gap-4 max-[900px]:gap-1 justify-self-end">
               <Link
                 to="/cart"
@@ -95,8 +86,6 @@ const Header = () => {
           </div>
         </header>
       </div>
-
-      {/* Mobile drawer */}
       <div
         className={`fixed inset-0 z-90 bg-black/[0.55] backdrop-blur-[3px] transition-opacity duration-300 ${
           menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
@@ -134,16 +123,6 @@ const Header = () => {
             </NavLink>
           ))}
         </nav>
-
-        <div className="p-5 border-t border-(--border)">
-          <Link
-            to="/account"
-            onClick={closeMenu}
-            className="inline-flex items-center justify-center gap-2.5 h-13 px-7 rounded-md bg-(--black) text-(--white) font-semibold text-[15px] tracking-[0.06em] uppercase transition-colors duration-200 hover:bg-(--navy) w-full"
-          >
-            <i className="ri-user-3-line" /> My Account
-          </Link>
-        </div>
       </aside>
     </>
   );

@@ -1,9 +1,8 @@
-// Uses your existing hero image. Swap for any transparent PNG you like.
 import modelImg from "../assets/images/ctaimg.png";
 
 const PERKS = [
   { icon: "ri-truck-line", text: "Fast delivery" },
-  { icon: "ri-arrow-go-back-line", text: "14-days returns" },
+  { icon: "ri-arrow-go-back-line", text: "Fast returns" },
   { icon: "ri-shield-check-line", text: "Secure payments" },
 ];
 
@@ -14,9 +13,8 @@ const CTABanner = () => {
         <div className="relative overflow-hidden rounded-2xl bg-(--navy) sm:min-h-65 lg:min-h-70">
 
           <div className="relative mx-auto flex h-full w-full max-w-5xl sm:min-h-65 lg:min-h-70">
-            {/* Copy */}
             <div className="relative z-2 flex flex-col justify-center px-6 py-8 sm:w-[62%] sm:px-8 sm:py-7 lg:w-[60%] lg:px-10 lg:py-8">
-              <span className="mb-3 inline-flex items-center gap-2 self-start rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-(--white) sm:text-[11px]">
+              <span className="mb-3 inline-flex items-center gap-2 self-start py-1 text-[10px] font-semibold uppercase tracking-widest text-(--white) sm:text-[11px]">
                 <i className="ri-sparkling-2-line" aria-hidden="true" />
                 New season is here
               </span>
@@ -28,7 +26,7 @@ const CTABanner = () => {
                 <span className="font-extrabold text-(--white)">your way</span>
               </h2>
 
-              <p className="mt-3 max-w-md text-[14px] leading-normal text-white/75 sm:text-[15px] sm:leading-[1.55]">
+              <p className="mt-3 max-w-md text-[14px] leading-normal text-white sm:text-[15px] sm:leading-[1.55]">
                 Clean cuts and easy layers made to be shared. Find the pieces that
                 fit your day and make them yours.
               </p>

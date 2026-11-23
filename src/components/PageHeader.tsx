@@ -1,14 +1,10 @@
 import { Link } from "react-router-dom";
 
 interface PageHeaderProps {
-  /** Small label above the title, e.g. "Get in touch" */
   eyebrow?: string;
-  /** Outlined first word, e.g. "let's" */
   outline?: string;
-  /** Solid word(s), e.g. "talk." */
   title: string;
   description?: string;
-  /** Label for the current page in the breadcrumb */
   crumb: string;
 }
 
@@ -21,15 +17,6 @@ const PageHeader = ({
 }: PageHeaderProps) => {
   return (
     <section className="relative isolate flex min-h-[clamp(260px,calc(100svh-380px),360px)] w-full items-center overflow-hidden bg-(--navy)">
-      {/* Soft glows */}
-      <span
-        className="pointer-events-none absolute -right-24 -top-24 -z-10 size-120 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.12),transparent_70%)]"
-        aria-hidden="true"
-      />
-      <span
-        className="pointer-events-none absolute -bottom-40 left-1/4 -z-10 size-120 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.06),transparent_70%)]"
-        aria-hidden="true"
-      />
 
       <div className="mx-auto w-full max-w-350 px-5 py-8 sm:px-6 sm:py-10 lg:px-10">
         {/* Breadcrumb */}

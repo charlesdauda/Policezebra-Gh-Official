@@ -40,7 +40,6 @@ const Footer = () => {
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (!email.trim()) return;
-    // TODO: send the email to your newsletter service
     setJoined(true);
     setEmail("");
   };
@@ -49,7 +48,6 @@ const Footer = () => {
     <footer className="border-t border-(--border) bg-(--white)">
       <div className="mx-auto w-full max-w-350 px-5 sm:px-6">
         <div className="grid grid-cols-2 gap-x-6 gap-y-10 py-12 sm:py-16 lg:grid-cols-[1.2fr_0.8fr_0.9fr_0.8fr_1.6fr] lg:gap-10 lg:py-20">
-          {/* Contact */}
           <div className="col-span-2 space-y-5 lg:col-span-1">
             <p className="flex items-start gap-3 text-[16px] font-medium leading-normal text-(--black)">
               <i
@@ -64,23 +62,22 @@ const Footer = () => {
             </p>
             <div className="space-y-2 text-[16px]">
               <a
-                href="mailto:care@policezebra.com"
+                href="mailto:policezebrastore@gmail.com"
                 className="flex items-center gap-3 text-(--black) transition-colors hover:text-(--navy)"
               >
                 <i className="ri-mail-line text-[20px] text-(--navy)" aria-hidden="true" />
-                care@policezebra.com
+                policezebrastore@gmail.com
               </a>
               <a
-                href="tel:+233000000000"
+                href="tel:+233 55 985 7144"
                 className="flex items-center gap-3 text-(--grey) transition-colors hover:text-(--navy)"
               >
                 <i className="ri-phone-line text-[20px] text-(--navy)" aria-hidden="true" />
-                +233 00 000 0000
+                +233 55 985 7144
               </a>
             </div>
           </div>
-
-          {/* Newsletter: second on mobile, last on desktop */}
+          
           <div className="col-span-2 order-2 rounded-xl bg-(--ivory) p-5 sm:p-6 lg:order-last lg:col-span-1 lg:rounded-none lg:bg-transparent lg:p-0">
             <h3 className="text-[22px] font-semibold uppercase leading-tight text-(--black) sm:text-[24px]">
               <span className="font-black text-(--navy)">Get 5% off</span>

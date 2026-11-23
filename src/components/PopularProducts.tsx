@@ -13,7 +13,6 @@ interface Product {
   badge?: string;
 }
 
-// Built from the shared product list, so ids and prices always match the shop
 const PRODUCTS: Product[] = POPULAR_IDS.map((id) => {
   const p = PRODUCT_BY_ID[id];
   return {
@@ -29,11 +28,9 @@ const PRODUCTS: Product[] = POPULAR_IDS.map((id) => {
 
 const AUTO_MS = 4000;
 const PAUSE_MS = 6000;
-const TAP_QUERY = "(max-width: 1023px)"; // below the desktop (lg) breakpoint
+const TAP_QUERY = "(max-width: 1023px)";
 
 const money = (n: number) => `GH₵${n.toFixed(2)}`;
-
-// Left position of a card inside the scrolling track
 const cardLeft = (el: HTMLDivElement, index: number) => {
   const child = el.children[index] as HTMLElement | undefined;
   if (!child) return 0;
@@ -44,7 +41,6 @@ const cardLeft = (el: HTMLDivElement, index: number) => {
   );
 };
 
-/* ---------- Card ---------- */
 const ProductCard = ({
   p,
   open,
@@ -62,7 +58,6 @@ const ProductCard = ({
     onClick={onToggle}
     className="group relative overflow-hidden rounded-lg bg-(--white) transition-shadow duration-300 data-[open=true]:shadow-[0_24px_50px_-20px_rgba(11,41,77,0.35)] lg:hover:shadow-[0_24px_50px_-20px_rgba(11,41,77,0.35)] lg:focus-within:shadow-[0_24px_50px_-20px_rgba(11,41,77,0.35)]"
   >
-    {/* Image */}
     <div className="relative aspect-3/4 overflow-hidden bg-(--ivory)">
       <img
         src={p.image}
@@ -77,14 +72,13 @@ const ProductCard = ({
         </span>
       )}
 
-      {/* Quickview: appears on hover (desktop) or when the card is tapped open */}
       <button
         type="button"
         onClick={(e) => {
           e.stopPropagation();
           onQuickView(p);
         }}
-        className="pointer-events-none absolute bottom-0 right-0 z-10 translate-y-2 bg-(--white) px-5 py-3.5 text-[13px] font-semibold uppercase tracking-[0.06em] text-(--black) opacity-0 transition-all duration-300 hover:bg-(--navy) hover:text-(--white) focus-visible:translate-y-0 focus-visible:opacity-100 group-data-[open=true]:pointer-events-auto group-data-[open=true]:translate-y-0 group-data-[open=true]:opacity-100 sm:px-6 sm:py-4 sm:text-[14px] lg:group-hover:pointer-events-auto lg:group-hover:translate-y-0 lg:group-hover:opacity-100"
+        className="pointer-events-none absolute bottom-0 m-2 right-0 z-10 translate-y-2 bg-(--white) px-5 py-3.5 text-[13px] font-semibold uppercase tracking-[0.06em] text-(--black) opacity-0 transition-all duration-300 hover:bg-(--navy) hover:text-(--white) focus-visible:translate-y-0 focus-visible:opacity-100 group-data-[open=true]:pointer-events-auto group-data-[open=true]:translate-y-0 group-data-[open=true]:opacity-100 sm:px-6 sm:py-4 sm:text-[14px] lg:group-hover:pointer-events-auto lg:group-hover:translate-y-0 lg:group-hover:opacity-100"
       >
         Quickview
       </button>
@@ -116,7 +110,6 @@ const ProductCard = ({
   </article>
 );
 
-/* ---------- Quickview modal ---------- */
 const QuickView = ({ p, onClose }: { p: Product; onClose: () => void }) => {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
@@ -137,14 +130,14 @@ const QuickView = ({ p, onClose }: { p: Product; onClose: () => void }) => {
       aria-label={p.name}
     >
       <div
-        className="relative grid max-h-[88svh] w-full max-w-sm grid-cols-[140px_1fr] overflow-hidden rounded-xl bg-(--white) shadow-2xl sm:max-w-3xl sm:grid-cols-2 sm:overflow-y-auto"
+        className="relative grid max-h-[88svh] w-full max-w-sm grid-cols-[140px_1fr] overflow-hidden rounded-lg bg-(--white) shadow-2xl sm:max-w-3xl sm:grid-cols-2 sm:overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
         <button
           type="button"
           onClick={onClose}
           aria-label="Close quickview"
-          className="absolute right-2 top-2 z-10 flex size-9 items-center justify-center rounded-full bg-(--white) text-[20px] text-(--black) shadow transition-colors hover:bg-black/10 sm:right-3 sm:top-3 sm:size-10 sm:text-[22px]"
+          className="absolute right-2 top-2 z-10 flex size-9 items-center justify-center bg-(--white) text-[20px] text-(--black) sm:right-3 sm:top-3 sm:size-10 sm:text-[22px]"
         >
           <i className="ri-close-line" />
         </button>

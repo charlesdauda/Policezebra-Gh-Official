@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;500;600;700&family=Poppins:wght@600;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300;400;500;600;700&family=Poppins:wght@600;800&display=swap");
 @import "tailwindcss";
 
 @theme {
@@ -24,7 +24,7 @@
   --ivory: #f7f5f0;
   --white: #ffffff;
   --champagne: #b9a98a;
-  --grey: #777777;
+  --grey: #080808;
   --border: #e8e5df;
 }
 
@@ -33,6 +33,10 @@
     background: var(--ivory);
     color: var(--black);
     -webkit-font-smoothing: antialiased;
+  }
+
+  p {
+    font-weight: 300 !important;
   }
 }
 

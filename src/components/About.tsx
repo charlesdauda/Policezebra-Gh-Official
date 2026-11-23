@@ -33,7 +33,7 @@ const VALUES = [
 
 const AUTO_MS = 4000;
 const PAUSE_MS = 6000;
-const MOBILE_QUERY = "(max-width: 639px)";
+const GRID_QUERY = "(min-width: 1280px)"; 
 
 const CountUp = ({
   to,
@@ -65,7 +65,7 @@ const CountUp = ({
         const start = performance.now();
         const tick = (now: number) => {
           const p = Math.min((now - start) / duration, 1);
-          const eased = 1 - Math.pow(1 - p, 3); // ease-out
+          const eased = 1 - Math.pow(1 - p, 3);
           setN(Math.round(to * eased));
           if (p < 1) raf = requestAnimationFrame(tick);
         };
@@ -92,73 +92,94 @@ const CountUp = ({
 const About = () => {
   const scrollerRef = useRef<HTMLUListElement>(null);
   const lastTouch = useRef(0);
-  const [active, setActive] = useState(0);
+  const [page, setPage] = useState(0);
+  const [pages, setPages] = useState(VALUES.length);
+
+  // Width of one "page" (everything visible at once) including the gap
+  const pageWidth = () => {
+    const el = scrollerRef.current;
+    if (!el) return 0;
+    const gap = parseFloat(getComputedStyle(el).columnGap) || 0;
+    return el.clientWidth + gap;
+  };
 
   const goTo = (index: number) => {
     const el = scrollerRef.current;
-    const child = el?.children[index] as HTMLElement | undefined;
-    if (!el || !child) return;
-    el.scrollTo({ left: child.offsetLeft, behavior: "smooth" });
+    if (!el) return;
+    el.scrollTo({ left: index * pageWidth(), behavior: "smooth" });
   };
 
   const handleScroll = () => {
     const el = scrollerRef.current;
-    if (!el) return;
-    let nearest = 0;
-    let best = Infinity;
-    Array.from(el.children).forEach((child, i) => {
-      const dist = Math.abs((child as HTMLElement).offsetLeft - el.scrollLeft);
-      if (dist < best) {
-        best = dist;
-        nearest = i;
-      }
-    });
-    setActive(nearest);
+    const w = pageWidth();
+    if (!el || !w) return;
+    setPage(Math.round(el.scrollLeft / w));
   };
+
+  useEffect(() => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    const update = () => {
+      const w = pageWidth();
+      if (!w) return;
+      const gap = parseFloat(getComputedStyle(el).columnGap) || 0;
+      setPages(Math.max(1, Math.round((el.scrollWidth + gap) / w)));
+    };
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
 
   const markTouched = () => {
     lastTouch.current = Date.now();
   };
 
-  // Auto-advance on mobile only
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
     const id = setInterval(() => {
-      if (!window.matchMedia(MOBILE_QUERY).matches) return;
+      if (window.matchMedia(GRID_QUERY).matches) return;
       if (Date.now() - lastTouch.current < PAUSE_MS) return;
-      goTo((active + 1) % VALUES.length);
+      const el = scrollerRef.current;
+      if (!el) return;
+      const atEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 4;
+      el.scrollTo({
+        left: atEnd ? 0 : el.scrollLeft + pageWidth(),
+        behavior: "smooth",
+      });
     }, AUTO_MS);
 
     return () => clearInterval(id);
-  }, [active]);
+  }, []);
 
   return (
     <section className="pb-14 pt-14 sm:pb-20 sm:pt-20 lg:pb-24 lg:pt-24">
       <div className="mx-auto w-full max-w-350 px-4 sm:px-6">
-        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
-          <div className="mx-auto w-full max-w-md overflow-hidden rounded-xl border border-(--border) bg-(--white) sm:max-w-lg lg:mx-0 lg:max-w-125">
-            <img
-              src={aboutImg}
-              alt="The Police Zebra story"
-              loading="lazy"
-              className="block h-auto w-full"
-            />
+        <div className="grid items-center gap-10 md:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] md:gap-10 lg:gap-16">
+          <div className="mx-auto w-full max-w-sm md:mx-0 md:max-w-none">
+            <div className="overflow-hidden rounded-lg border border-(--border) bg-(--white)">
+              <img
+                src={aboutImg}
+                alt="The Police Zebra story"
+                loading="lazy"
+                className="block max-h-140 w-full object-cover object-top"
+              />
+            </div>
           </div>
+          
           <div>
             <span className="mb-4 inline-flex items-center gap-2 text-[13px] font-semibold uppercase tracking-[0.14em] text-(--black)">
               <span className="h-px w-8 bg-(--navy)" aria-hidden="true" />
               About us
             </span>
 
-            <h2 className="flex flex-wrap font-display text-[clamp(44px,6vw,84px)] leading-[0.95] tracking-[-0.045em] lowercase">
+            <h2 className="flex flex-wrap gap-x-3 font-display text-[clamp(44px,6vw,84px)] leading-[0.95] tracking-[-0.045em] lowercase">
               <span className="font-extrabold text-transparent [-webkit-text-stroke:1.8px_var(--navy)] lg:[-webkit-text-stroke:2px_var(--navy)]">
                 our
               </span>
               <span className="font-extrabold text-(--navy)">story</span>
             </h2>
 
-            <p className="mt-6 max-w-xl text-lg font-medium leading-snug text-(--black) sm:text-xl">
+            <p className="mt-5 max-w-xl text-lg font-medium leading-snug text-(--black) sm:mt-6 sm:text-xl">
               Clothing that feels as good as it looks, designed for everyone.
             </p>
 
@@ -177,8 +198,9 @@ const About = () => {
             </div>
           </div>
         </div>
-        
-        <dl className="mt-16 grid grid-cols-2 gap-x-4 gap-y-10 sm:mt-20 lg:grid-cols-4">
+
+        {/* Stats: 2 by 2 on mobile, one row from tablet up */}
+        <dl className="mt-16 grid grid-cols-2 gap-x-4 gap-y-10 sm:mt-20 sm:grid-cols-4">
           {STATS.map((s) => (
             <div key={s.label} className="text-center">
               <dd className="font-display text-[clamp(32px,4vw,48px)] font-extrabold leading-none tracking-[-0.04em] text-(--navy)">
@@ -202,20 +224,20 @@ const About = () => {
               What we stand for
             </h3>
           </div>
-
-          {/* Mobile: one card at a time, auto-scrolling. Tablet/desktop: grid */}
           <ul
             ref={scrollerRef}
             onScroll={handleScroll}
             onTouchStart={markTouched}
             onPointerDown={markTouched}
             onWheel={markTouched}
-            className="relative flex snap-x snap-mandatory overflow-x-auto scrollbar-none sm:grid sm:snap-none sm:grid-cols-2 sm:gap-5 sm:overflow-visible lg:grid-cols-4 [&::-webkit-scrollbar]:hidden"
+            className="flex snap-x snap-mandatory gap-4 overflow-x-auto scrollbar-none sm:gap-5 xl:grid xl:snap-none xl:grid-cols-4 xl:overflow-visible [&::-webkit-scrollbar]:hidden"
           >
             {VALUES.map((v) => (
-              <li key={v.title} className="w-full shrink-0 snap-start sm:w-auto">
-                {/* Same card layout and size on mobile, tablet and desktop */}
-                <div className="flex h-full flex-col rounded-xl border border-(--border) bg-(--white) p-6 transition-colors duration-300 hover:border-(--navy)/35 sm:p-7">
+              <li
+                key={v.title}
+                className="w-full shrink-0 snap-start sm:w-[calc(50%-10px)] xl:w-auto"
+              >
+                <div className="flex h-full flex-col rounded-lg border border-(--border) bg-(--white) p-6 transition-colors duration-300 hover:border-(--navy)/35 sm:p-7">
                   <i
                     className={`${v.icon} block text-[32px] leading-none text-(--navy)`}
                     aria-hidden="true"
@@ -230,29 +252,30 @@ const About = () => {
               </li>
             ))}
           </ul>
-
-          {/* Mobile dots */}
-          <div
-            className="mt-4 flex justify-center gap-2 sm:hidden"
-            role="tablist"
-            aria-label="Our values"
-          >
-            {VALUES.map((v, i) => (
-              <button
-                key={v.title}
-                role="tab"
-                aria-selected={i === active}
-                aria-label={`Show ${v.title}`}
-                onClick={() => {
-                  markTouched();
-                  goTo(i);
-                }}
-                className={`h-2 cursor-pointer rounded-full transition-all duration-300 ${
-                  i === active ? "w-7 bg-(--navy)" : "w-2 bg-black/25"
-                }`}
-              />
-            ))}
-          </div>
+          {pages > 1 && (
+            <div
+              className="mt-5 flex justify-center gap-2 xl:hidden"
+              role="tablist"
+              aria-label="Our values"
+            >
+              {Array.from({ length: pages }, (_, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  role="tab"
+                  aria-selected={i === page}
+                  aria-label={`Show page ${i + 1}`}
+                  onClick={() => {
+                    markTouched();
+                    goTo(i);
+                  }}
+                  className={`h-2 cursor-pointer rounded-full transition-all duration-300 ${
+                    i === page ? "w-7 bg-(--navy)" : "w-2 bg-black/25"
+                  }`}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </section>

@@ -1,61 +1,44 @@
-/* ======================================================================
-   PRODUCT IMAGES
-   Every product has its own import line. All of them point to the
-   placeholder essentials.png for now.
-   TO REPLACE AN IMAGE: change only the file path on that product's line,
-   e.g.  import sneaker1 from "../assets/images/court-low-sneaker.png";
-
-   EXTRA PHOTOS (optional): add more imports such as
-     import sneaker1b from "../assets/images/court-low-sneaker-2.png";
-   then pass them in that product's item(...) call at the bottom:
-     item(..., 450, sneaker1, { gallery: [sneaker1b] })
-   ====================================================================== */
-
-/* ---------- Jeans & trousers ---------- */
-import jeans1 from "../assets/images/essentials.png"; // Straight leg jeans
-import jeans2 from "../assets/images/essentials.png"; // Relaxed chinos
-import jeans3 from "../assets/images/essentials.png"; // Weekend jogger
-
-/* ---------- Sneakers ---------- */
-import sneaker1 from "../assets/images/essentials.png"; // Court low sneaker
-import sneaker2 from "../assets/images/essentials.png"; // Zebra runner
-
 /* ---------- Graphic tees ---------- */
 import tee1 from "../assets/images/essentials.png"; // Zebra classic tee
 import tee2 from "../assets/images/essentials.png"; // Oversized navy tee
 
-/* ---------- Hoodies & jackets ---------- */
+/* ---------- Hoodies ---------- */
 import hoodie1 from "../assets/images/essentials.png"; // Essential unisex hoodie
-import jacket1 from "../assets/images/essentials.png"; // Coach jacket
 
 /* ---------- Shorts ---------- */
 import shorts1 from "../assets/images/essentials.png"; // Relaxed denim shorts
 import shorts2 from "../assets/images/essentials.png"; // Weekend shorts
 import shorts3 from "../assets/images/essentials.png"; // Track shorts
 
-/* ---------- Jorts ---------- */
-import jorts1 from "../assets/images/essentials.png"; // Relaxed denim jorts
-import jorts2 from "../assets/images/essentials.png"; // Faded black jorts
-
-/* ---------- Caps ---------- */
-import cap1 from "../assets/images/essentials.png"; // Everyday cap
-import cap2 from "../assets/images/essentials.png"; // Zebra dad cap
-
 /* ---------- Socks ---------- */
 import socks1 from "../assets/images/essentials.png"; // Crew socks, 3 pack
 import socks2 from "../assets/images/essentials.png"; // Striped sport socks
 
-/* ---------- Slides ---------- */
-import slides1 from "../assets/images/essentials.png"; // Cloud slides
-import slides2 from "../assets/images/essentials.png"; // Zebra logo slides
+/* ---------- Flipflops and slippers ---------- */
+import flipflop1 from "../assets/images/essentials.png"; // Flipflop
+import slipper1 from "../assets/images/essentials.png"; // Slipper
 
-/* ---------- Backpacks ---------- */
-import backpack1 from "../assets/images/essentials.png"; // City backpack
-import backpack2 from "../assets/images/essentials.png"; // Mini backpack
+/* ---------- Boxers and underpants ---------- */
+import boxer1 from "../assets/images/essentials.png";
+import boxer2 from "../assets/images/essentials.png";
+import underpant1 from "../assets/images/essentials.png";
+import underpant2 from "../assets/images/essentials.png";
 
-/* ---------- Duffel bags ---------- */
-import duffel1 from "../assets/images/essentials.png"; // Weekender duffel
-import duffel2 from "../assets/images/essentials.png"; // Gym duffel
+/* ---------- Lacoste ---------- */
+import lacoste1 from "../assets/images/essentials.png";
+import lacoste2 from "../assets/images/dunmis.png";
+
+/* ---------- Aprons ---------- */
+import apron1 from "../assets/images/apron.png";
+import apron2 from "../assets/images/apron.png";
+
+/* ---------- Mugs ---------- */
+import mug1 from "../assets/images/mug.png";
+import mug2 from "../assets/images/mug.png";
+
+/* ---------- Tote bags ---------- */
+import tote1 from "../assets/images/tote.png";
+import tote2 from "../assets/images/tote.png";
 
 export interface ProductColor {
   name: string;
@@ -100,20 +83,16 @@ const COLORS: ProductColor[] = [
 
 const SHOE_SIZES = ["37", "38", "39", "40", "41", "42", "43"];
 const CLOTHING_SIZES = ["S", "M", "L", "XL", "XXL"];
-const WAIST_SIZES = ["28", "30", "32", "34", "36"];
 const SOCK_SIZES = ["S/M", "L/XL"];
 const ONE_SIZE = ["One size"];
 
 // Sizes per category (anything not listed uses clothing sizes)
 const SIZES_BY_CATEGORY: Record<string, string[]> = {
-  Sneakers: SHOE_SIZES,
-  Slides: SHOE_SIZES,
-  "Jeans & trousers": WAIST_SIZES,
-  Jorts: WAIST_SIZES,
+  Flipflops: SHOE_SIZES,
+  Slippers: SHOE_SIZES,
   Socks: SOCK_SIZES,
-  Caps: ONE_SIZE,
-  Backpacks: ONE_SIZE,
-  "Duffel bags": ONE_SIZE,
+  Aprons: ONE_SIZE,
+  Mugs: ONE_SIZE,
 };
 
 const item = (
@@ -153,44 +132,40 @@ const item = (
    Product ids must be unique (the cart and checkout use them).
    ====================================================================== */
 export const CATEGORIES: Category[] = [
-  /* ---------- JEANS & TROUSERS ---------- */
+  /* ---------- T-SHIRTS ---------- */
   {
-    id: "jeans-trousers",
-    label: "Jeans & trousers",
+    id: "t-shirts",
+    label: "T-shirts",
     products: [
-      item("Jeans & trousers", "straight-leg-jeans", "Straight leg jeans", "Classic fit in washed indigo denim.", 320, jeans1),
-      item("Jeans & trousers", "relaxed-chinos", "Relaxed chinos", "Soft cotton twill with an easy cut.", 280, jeans2),
-      item("Jeans & trousers", "weekend-jogger", "Weekend jogger", "Soft brushed cotton with a tapered leg.", 210, jeans3),
+      item("T-shirts", "zebra-classic-tee", "Zebra classic tee", "Heavy cotton with the signature zebra print.", 120, tee1, { badge: "Trending" }),
+      item("T-shirts", "oversized-navy-tee", "Oversized navy tee", "Relaxed drop shoulder fit.", 130, tee2),
     ],
   },
 
-  /* ---------- SNEAKERS ---------- */
+  /* ---------- HOODIES ---------- */
   {
-    id: "sneakers",
-    label: "Sneakers",
+    id: "hoodies",
+    label: "Hoodies",
     products: [
-      item("Sneakers", "court-low-sneaker", "Court low sneaker", "Clean leather upper for everyday wear.", 450, sneaker1),
-      item("Sneakers", "zebra-runner", "Zebra runner", "Light cushioned sole with a bold finish.", 520, sneaker2),
+      item("Hoodies", "essential-hoodie", "Essential unisex hoodie", "Brushed fleece lining, made to be shared.", 280, hoodie1, { badge: "Bestseller" }),
     ],
   },
 
-  /* ---------- GRAPHIC TEES ---------- */
+  /* ---------- FLIPFLOPS ---------- */
   {
-    id: "graphic-tees",
-    label: "Graphic tees",
+    id: "flipflops",
+    label: "Flipflops",
     products: [
-      item("Graphic tees", "zebra-classic-tee", "Zebra classic tee", "Heavy cotton with the signature zebra print.", 120, tee1, { badge: "Trending" }),
-      item("Graphic tees", "oversized-navy-tee", "Oversized navy tee", "Relaxed drop shoulder fit.", 130, tee2),
+      item("Flipflops", "everyday-flipflops", "Everyday flipflops", "Lightweight everyday footwear.", 130, flipflop1),
     ],
   },
 
-  /* ---------- HOODIES & JACKETS ---------- */
+  /* ---------- SLIPPERS ---------- */
   {
-    id: "hoodies-jackets",
-    label: "Hoodies & jackets",
+    id: "slippers",
+    label: "Slippers",
     products: [
-      item("Hoodies & jackets", "essential-hoodie", "Essential unisex hoodie", "Brushed fleece lining, made to be shared.", 280, hoodie1, { badge: "Bestseller" }),
-      item("Hoodies & jackets", "coach-jacket", "Coach jacket", "Lightweight layer with snap buttons.", 360, jacket1),
+      item("Slippers", "everyday-slippers", "Everyday slippers", "Soft, comfortable indoor footwear.", 150, slipper1),
     ],
   },
 
@@ -205,23 +180,23 @@ export const CATEGORIES: Category[] = [
     ],
   },
 
-  /* ---------- JORTS ---------- */
+  /* ---------- BOXERS ---------- */
   {
-    id: "jorts",
-    label: "Jorts",
+    id: "boxers",
+    label: "Boxers",
     products: [
-      item("Jorts", "relaxed-denim-jorts", "Relaxed denim jorts", "Knee length with a loose fit.", 190, jorts1),
-      item("Jorts", "faded-black-jorts", "Faded black jorts", "Washed black denim, worn in feel.", 200, jorts2),
+      item("Boxers", "classic-cotton-boxers", "Classic cotton boxers", "Soft breathable cotton for all-day comfort.", 55, boxer1),
+      item("Boxers", "police-zebra-boxers", "Police Zebra boxers", "Comfort-fit boxer with a bold branded finish.", 65, boxer2, { badge: "New" }),
     ],
   },
 
-  /* ---------- CAPS ---------- */
+  /* ---------- LACOSTE ---------- */
   {
-    id: "caps",
-    label: "Caps",
+    id: "lacoste",
+    label: "Lacoste",
     products: [
-      item("Caps", "everyday-cap", "Everyday cap", "Six panel cotton cap, adjustable strap.", 90, cap1, { badge: "New" }),
-      item("Caps", "zebra-dad-cap", "Zebra dad cap", "Curved brim with embroidered logo.", 100, cap2),
+      item("Lacoste", "classic-lacoste-polo", "Classic Lacoste polo", "Smart everyday polo with a clean collar.", 220, lacoste1),
+      item("Lacoste", "premium-lacoste-polo", "Premium Lacoste polo", "Soft pique fabric with a polished finish.", 260, lacoste2, { badge: "New" }),
     ],
   },
 
@@ -235,33 +210,43 @@ export const CATEGORIES: Category[] = [
     ],
   },
 
-  /* ---------- SLIDES ---------- */
+  /* ---------- UNDERPANTS ---------- */
   {
-    id: "slides",
-    label: "Slides",
+    id: "underpants",
+    label: "Underpants",
     products: [
-      item("Slides", "cloud-slides", "Cloud slides", "Soft foam footbed, easy to slip on.", 130, slides1),
-      item("Slides", "zebra-logo-slides", "Zebra logo slides", "Waterproof strap with a raised logo.", 150, slides2),
+      item("Underpants", "classic-cotton-underpants", "Classic cotton underpants", "Comfortable everyday fit in soft cotton.", 45, underpant1),
+      item("Underpants", "premium-underpants", "Premium underpants", "Stretch fabric with a supportive waistband.", 55, underpant2),
     ],
   },
 
-  /* ---------- BACKPACKS ---------- */
+  /* ---------- APRONS ---------- */
   {
-    id: "backpacks",
-    label: "Backpacks",
+    id: "aprons",
+    label: "Aprons",
     products: [
-      item("Backpacks", "city-backpack", "City backpack", "Padded laptop sleeve and two pockets.", 340, backpack1),
-      item("Backpacks", "mini-backpack", "Mini backpack", "Compact size for everyday essentials.", 240, backpack2),
+      item("Aprons", "police-zebra-apron", "Police Zebra apron", "Durable apron for cooking, baking or work.", 110, apron1),
+      item("Aprons", "branded-kitchen-apron", "Branded kitchen apron", "Adjustable apron with a practical front pocket.", 120, apron2, { badge: "New" }),
     ],
   },
 
-  /* ---------- DUFFEL BAGS ---------- */
+  /* ---------- MUGS ---------- */
   {
-    id: "duffel-bags",
-    label: "Duffel bags",
+    id: "mugs",
+    label: "Mugs",
     products: [
-      item("Duffel bags", "weekender-duffel", "Weekender duffel", "Roomy canvas bag with a shoulder strap.", 380, duffel1),
-      item("Duffel bags", "gym-duffel", "Gym duffel", "Water resistant with a shoe compartment.", 320, duffel2),
+      item("Mugs", "police-zebra-mug", "Police Zebra mug", "Ceramic mug for hot drinks at home or work.", 70, mug1),
+      item("Mugs", "branded-zebra-mug", "Branded zebra mug", "Bold branded mug with a comfortable handle.", 80, mug2, { badge: "New" }),
+    ],
+  },
+
+  /* ---------- TOTE BAGS ---------- */
+  {
+    id: "tote-bags",
+    label: "Tote bags",
+    products: [
+      item("Tote bags", "police-zebra-tote", "Police Zebra tote bag", "Roomy everyday tote for shopping, school or work.", 95, tote1),
+      item("Tote bags", "branded-zebra-tote", "Branded zebra tote bag", "Reusable canvas tote with a bold zebra finish.", 110, tote2, { badge: "New" }),
     ],
   },
 ];
@@ -282,8 +267,8 @@ export const POPULAR_IDS = [
   "essential-hoodie",
   "relaxed-denim-shorts",
   "oversized-navy-tee",
-  "everyday-cap",
-  "weekend-jogger",
+  "everyday-flipflops",
+  "everyday-slippers",
 ];
 
 export const ghsFmt = (n: number) =>

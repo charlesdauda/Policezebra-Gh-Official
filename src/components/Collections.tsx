@@ -1,6 +1,4 @@
-import { useEffect, useRef, useState } from "react";
-
-// Replace these with your own images (rename the files to match, or change the paths)
+import { useCallback, useEffect, useRef, useState } from "react";
 import essentialsImg from "../assets/images/essentials.png";
 import menImg from "../assets/images/dunmis.png";
 import womenImg from "../assets/images/outfit.png";
@@ -34,17 +32,23 @@ const COLLECTIONS: Collection[] = [
 ];
 
 const TOP_COLLECTIONS = [
-  "Tees",
+  "T-shirts",
   "Hoodies",
-  "Unisex essentials",
-  "Back in stock",
-  "New arrivals",
+  "Flipflops",
+  "Slippers",
   "Shorts",
+  "Boxers",
+  "Lacoste",
+  "Socks",
+  "Underpants",
+  "Aprons",
+  "Mugs",
+  "Tote bags",
 ];
 
 const AUTO_MS = 4000;
 const PAUSE_MS = 6000;
-const MOBILE_QUERY = "(max-width: 639px)";
+const CAROUSEL_QUERY = "(max-width: 1279px)";
 
 const imgClass =
   "absolute inset-0 size-full object-cover transition-transform duration-700 ease-out group-hover:scale-105";
@@ -53,7 +57,7 @@ const Card = ({ c }: { c: Collection }) => {
   if (c.variant === "below") {
     return (
       <article className="group flex h-full flex-col">
-        <div className="relative min-h-55 flex-1 overflow-hidden rounded-lg">
+        <div className="relative aspect-563/503 overflow-hidden rounded-lg xl:aspect-auto xl:min-h-55 xl:flex-1">
           <img src={c.image} alt={c.title} loading="lazy" className={imgClass} />
         </div>
 
@@ -64,7 +68,7 @@ const Card = ({ c }: { c: Collection }) => {
             </h3>
             {/* Decorative arrow */}
             <svg
-              className="hidden h-2.5 w-14 shrink-0 text-(--navy) sm:block"
+              className="hidden h-2.5 w-14 shrink-0 text-(--navy) xl:block"
               viewBox="0 0 56 10"
               fill="none"
               aria-hidden="true"
@@ -82,14 +86,12 @@ const Card = ({ c }: { c: Collection }) => {
   return (
     <article className="group relative aspect-563/503 overflow-hidden rounded-lg">
       <img src={c.image} alt={c.title} loading="lazy" className={imgClass} />
-
-      {/* Readability gradient */}
       <div
         className="absolute inset-0 bg-linear-to-t from-(--black)/75 via-(--black)/15 to-transparent"
         aria-hidden="true"
       />
 
-      <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
+      <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6 xl:p-8">
         <h3 className="text-[26px] font-semibold uppercase leading-none tracking-[0.01em] text-(--white) max-sm:text-[22px]">
           {c.title}
         </h3>
@@ -103,95 +105,120 @@ const Collections = () => {
   const scrollerRef = useRef<HTMLDivElement>(null);
   const lastTouch = useRef(0);
   const [active, setActive] = useState(0);
-
-  const goTo = (index: number) => {
+  const [positions, setPositions] = useState(COLLECTIONS.length);
+  
+  const stepWidth = useCallback(() => {
     const el = scrollerRef.current;
-    const child = el?.children[index] as HTMLElement | undefined;
-    if (!el || !child) return;
-    el.scrollTo({ left: child.offsetLeft, behavior: "smooth" });
-  };
+    const first = el?.children[0] as HTMLElement | undefined;
+    if (!el || !first) return 0;
+    const gap = parseFloat(getComputedStyle(el).columnGap) || 0;
+    return first.offsetWidth + gap;
+  }, []);
 
-  // Track which card is showing (also updates when the user swipes)
+  const goTo = useCallback(
+    (index: number) => {
+      const el = scrollerRef.current;
+      if (!el) return;
+      el.scrollTo({ left: index * stepWidth(), behavior: "smooth" });
+    },
+    [stepWidth]
+  );
+
   const handleScroll = () => {
     const el = scrollerRef.current;
-    if (!el) return;
-    let nearest = 0;
-    let best = Infinity;
-    Array.from(el.children).forEach((child, i) => {
-      const dist = Math.abs((child as HTMLElement).offsetLeft - el.scrollLeft);
-      if (dist < best) {
-        best = dist;
-        nearest = i;
-      }
-    });
-    setActive(nearest);
+    const step = stepWidth();
+    if (!el || !step) return;
+    setActive(Math.round(el.scrollLeft / step));
   };
+
+  // How many stops there are: 3 on mobile (1 card visible), 2 on tablet (2 visible)
+  useEffect(() => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    const update = () => {
+      const step = stepWidth();
+      if (!step) return;
+      const max = el.scrollWidth - el.clientWidth;
+      setPositions(Math.max(1, Math.round(max / step) + 1));
+    };
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [stepWidth]);
 
   const markTouched = () => {
     lastTouch.current = Date.now();
   };
 
-  // Auto-advance on mobile only
+  // Auto-advance one card at a time below 1280px, looping back to the first
   useEffect(() => {
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduce) return;
-
     const id = setInterval(() => {
-      if (!window.matchMedia(MOBILE_QUERY).matches) return;
+      if (!window.matchMedia(CAROUSEL_QUERY).matches) return;
       if (Date.now() - lastTouch.current < PAUSE_MS) return;
-      goTo((active + 1) % COLLECTIONS.length);
+      const el = scrollerRef.current;
+      if (!el) return;
+      const atEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 4;
+      el.scrollTo({
+        left: atEnd ? 0 : el.scrollLeft + stepWidth(),
+        behavior: "smooth",
+      });
     }, AUTO_MS);
 
     return () => clearInterval(id);
-  }, [active]);
+  }, [stepWidth]);
 
   return (
     <section className="pb-14 pt-10 sm:pb-20 lg:pt-14">
       <div className="mx-auto w-full max-w-350 px-4 sm:px-6">
-        {/* Mobile: one card at a time, auto-scrolling. Tablet: swipeable row. Desktop: 3-column grid */}
+        {/* Mobile: 1 card. Tablet and small laptops: 2 cards. From 1280px: 3-column grid.
+            Below 1280px it swipes automatically. */}
         <div
           ref={scrollerRef}
           onScroll={handleScroll}
           onTouchStart={markTouched}
           onPointerDown={markTouched}
           onWheel={markTouched}
-          className="relative flex snap-x snap-mandatory items-stretch gap-4 overflow-x-auto pb-2 scrollbar-none sm:-mx-6 sm:gap-5 sm:px-6 lg:mx-0 lg:grid lg:grid-cols-3 lg:gap-6 lg:overflow-visible lg:px-0 [&::-webkit-scrollbar]:hidden"
+          className="relative flex snap-x snap-mandatory items-stretch gap-4 overflow-x-auto pb-2 scrollbar-none sm:gap-5 xl:grid xl:snap-none xl:grid-cols-3 xl:gap-6 xl:overflow-visible [&::-webkit-scrollbar]:hidden"
         >
           {COLLECTIONS.map((c) => (
             <div
               key={c.title}
-              className="w-full shrink-0 snap-start sm:w-[46%] lg:w-auto"
+              className="w-full shrink-0 snap-start sm:w-[calc(50%-10px)] xl:w-auto"
             >
               <Card c={c} />
             </div>
           ))}
         </div>
 
-        {/* Mobile dots */}
-        <div
-          className="mt-4 flex justify-center gap-2 sm:hidden"
-          role="tablist"
-          aria-label="Collections"
-        >
-          {COLLECTIONS.map((c, i) => (
-            <button
-              key={c.title}
-              role="tab"
-              aria-selected={i === active}
-              aria-label={`Show ${c.title}`}
-              onClick={() => {
-                markTouched();
-                goTo(i);
-              }}
-              className={`h-2 cursor-pointer rounded-full transition-all duration-300 ${
-                i === active ? "w-7 bg-(--navy)" : "w-2 bg-black/25"
-              }`}
-            />
-          ))}
-        </div>
+        {/* Dots (hidden when the grid is showing) */}
+        {positions > 1 && (
+          <div
+            className="mt-4 flex justify-center gap-2 xl:hidden"
+            role="tablist"
+            aria-label="Collections"
+          >
+            {Array.from({ length: positions }, (_, i) => (
+              <button
+                key={i}
+                type="button"
+                role="tab"
+                aria-selected={i === active}
+                aria-label={`Show slide ${i + 1}`}
+                onClick={() => {
+                  markTouched();
+                  goTo(i);
+                }}
+                className={`h-2 cursor-pointer rounded-full transition-all duration-300 ${
+                  i === active ? "w-7 bg-(--navy)" : "w-2 bg-black/25"
+                }`}
+              />
+            ))}
+          </div>
+        )}
 
         {/* Top collections: hidden on mobile */}
-        <div className="mt-12 hidden flex-col gap-5 sm:mt-16 sm:flex lg:flex-row lg:items-center lg:gap-10">
+        <div className="mt-12 hidden flex-col gap-5 sm:mt-16 sm:flex xl:flex-row xl:items-center xl:gap-10">
           <h2 className="shrink-0 text-[24px] font-semibold uppercase leading-none tracking-[0.01em] text-(--black) sm:text-[26px]">
             Top collections
           </h2>
