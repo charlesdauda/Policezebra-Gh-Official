@@ -13,9 +13,10 @@ interface Product {
   badge?: string;
 }
 
-const PRODUCTS: Product[] = POPULAR_IDS.map((id) => {
+const PRODUCTS: Product[] = POPULAR_IDS.flatMap((id): Product[] => {
   const p = PRODUCT_BY_ID[id];
-  return {
+  if (!p) return [];
+  return [{
     id: p.id,
     brand: p.brand,
     name: p.name,
@@ -23,7 +24,7 @@ const PRODUCTS: Product[] = POPULAR_IDS.map((id) => {
     oldPrice: p.oldGhs,
     image: p.image,
     badge: p.badge,
-  };
+  }];
 });
 
 const AUTO_MS = 4000;

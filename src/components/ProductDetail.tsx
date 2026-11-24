@@ -4,7 +4,6 @@ import { eurFmt, ghsFmt, type Product } from "../data/products";
 import { cartKey } from "../context/cartContext";
 import { useCart } from "../context/useCart";
 import AddedToCartModal from "./AddedToCartModal";
-import Lightbox from "./Lightbox";
 
 const ProductDetail = ({ product }: { product: Product }) => {
   const { addItem, lines } = useCart();
@@ -13,11 +12,7 @@ const ProductDetail = ({ product }: { product: Product }) => {
   const [size, setSize] = useState(
     product.sizes.length === 1 ? product.sizes[0] : ""
   );
-  const [lightbox, setLightbox] = useState<number | null>(null);
   const [added, setAdded] = useState<{ color: string; size: string } | null>(null);
-
-  // Photos come from products.ts (main photo first, then the others)
-  const gallery = product.gallery;
   const canAdd = Boolean(color && size);
 
   const handleAdd = () => {
@@ -55,16 +50,11 @@ const ProductDetail = ({ product }: { product: Product }) => {
         </nav>
 
         <div className="grid gap-8 lg:grid-cols-2 lg:gap-16">
-          {/* Images: tap any of them to open the lightbox */}
+          {/* Main product image */}
           <div>
-            <button
-              type="button"
-              onClick={() => setLightbox(0)}
-              aria-label="View photos"
-              className="relative mx-auto block aspect-square w-full max-w-xl cursor-pointer overflow-hidden rounded-lg border border-(--border) bg-(--ivory) lg:mx-0"
-            >
+            <div className="relative mx-auto aspect-square w-full max-w-xl overflow-hidden rounded-lg border border-(--border) bg-(--ivory) lg:mx-0">
               <img
-                src={gallery[0]}
+                src={product.image}
                 alt={product.name}
                 className="size-full object-cover"
               />
@@ -73,24 +63,7 @@ const ProductDetail = ({ product }: { product: Product }) => {
                   {product.badge}
                 </span>
               )}
-            </button>
-
-            {gallery.length > 1 && (
-              <ul className="mx-auto mt-4 grid max-w-xl grid-cols-4 gap-3 lg:mx-0">
-                {gallery.slice(0, 4).map((src, i) => (
-                  <li key={i}>
-                    <button
-                      type="button"
-                      onClick={() => setLightbox(i)}
-                      aria-label={`View photo ${i + 1}`}
-                      className="aspect-square w-full cursor-pointer overflow-hidden rounded-md border border-(--border) transition-colors hover:border-(--navy)"
-                    >
-                      <img src={src} alt="" className="size-full object-cover" />
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            )}
+            </div>
           </div>
 
           {/* Details */}
@@ -201,16 +174,6 @@ const ProductDetail = ({ product }: { product: Product }) => {
           </div>
         </div>
       </div>
-
-      {lightbox !== null && (
-        <Lightbox
-          images={gallery}
-          alt={product.name}
-          index={lightbox}
-          onClose={() => setLightbox(null)}
-          onIndexChange={setLightbox}
-        />
-      )}
 
       {added && addedLine && (
         <AddedToCartModal line={addedLine} onClose={() => setAdded(null)} />

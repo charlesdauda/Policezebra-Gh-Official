@@ -91,7 +91,7 @@ const ShopProducts = () => {
       activeId === ALL_ID
         ? ALL_PRODUCTS
         : CATEGORIES.find((c) => c.id === activeId)?.products ?? [];
-    const list = [...base];
+    const list = [...new Map(base.map((product) => [product.id, product])).values()];
 
     if (sort === "price-low") list.sort((a, b) => a.ghs - b.ghs);
     else if (sort === "price-high") list.sort((a, b) => b.ghs - a.ghs);
