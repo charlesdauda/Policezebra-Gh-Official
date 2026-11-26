@@ -34,16 +34,9 @@ const COLLECTIONS: Collection[] = [
 const TOP_COLLECTIONS = [
   "T-shirts",
   "Hoodies",
-  "Flipflops",
+  "Unisex Essentials",
   "Slippers",
-  "Shorts",
-  "Boxers",
-  "Lacoste",
-  "Socks",
-  "Underpants",
-  "Aprons",
-  "Mugs",
-  "Tote bags",
+  "Shorts"
 ];
 
 const AUTO_MS = 4000;
