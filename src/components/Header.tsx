@@ -79,9 +79,6 @@ const Header = () => {
                 </span>
               </Link>
 
-              <Link to="/account" className={iconBtn} aria-label="Account">
-                <i className="ri-user-3-line" aria-hidden="true" />
-              </Link>
             </div>
           </div>
         </header>

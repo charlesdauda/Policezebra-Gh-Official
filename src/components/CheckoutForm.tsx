@@ -3,10 +3,8 @@ import type { ChangeEvent, FormEvent, ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { variantText } from "../context/cartContext";
 import { useCart } from "../context/useCart";
-import { useAuth } from "../context/useAuth";
 import { eurFmt, ghsFmt } from "../data/products";
 import OrderSuccessModal from "./OrderSuccessModal";
-import AuthRequiredModal from "./AuthRequiredModal";
 
 interface FormState {
   fullName: string;
@@ -52,13 +50,11 @@ const Field = ({
 
 const CheckoutForm = () => {
   const { lines, subtotalGhs, subtotalEur, removeItem, clear } = useCart();
-  const { user } = useAuth();
 
-  // Prefilled from the account (the customer can still edit them)
   const [form, setForm] = useState<FormState>({
-    fullName: user?.fullName ?? "",
-    email: user?.email ?? "",
-    phone: user?.phone ?? "",
+    fullName: "",
+    email: "",
+    phone: "",
     address: "",
     mapsLink: "",
   });
@@ -95,7 +91,7 @@ const CheckoutForm = () => {
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
-    if (submitting || !user) return; // no account, no order
+    if (submitting) return;
 
     const found = validate();
     setErrors(found);
@@ -149,15 +145,6 @@ const CheckoutForm = () => {
             Continue shopping
           </Link>
         </div>
-      </section>
-    );
-  }
-
-  // Not signed in: the shipping form is not shown at all, only the popup
-  if (!user) {
-    return (
-      <section className="min-h-[60svh]">
-        <AuthRequiredModal />
       </section>
     );
   }
