@@ -1,0 +1,299 @@
+{
+  "colorOptions": [
+    { "name": "Navy", "hex": "#0B294D" },
+    { "name": "Black", "hex": "#080808" },
+    { "name": "White", "hex": "#FFFFFF" },
+    { "name": "Grey", "hex": "#8A8A8A" },
+    { "name": "Cream", "hex": "#F4EBD0" },
+    { "name": "Champagne", "hex": "#B9A98A" }
+  ],
+  "categories": [
+    {
+      "id": "t-shirts",
+      "label": "T-shirts",
+      "products": [
+        {
+          "id": "zebra-classic-tee",
+          "brand": "Police Zebra",
+          "category": "T-shirts",
+          "name": "Zebra classic tee",
+          "description": "Heavy cotton with the signature zebra print.",
+          "priceGhs": 120,
+          "badge": "Trending",
+          "imageId": "tee1",
+          "galleryImageIds": ["tee1", "tee1", "tee1", "tee1"],
+          "colors": ["Navy", "Black", "White", "Grey", "Cream", "Champagne"],
+          "sizes": ["S", "M", "L", "XL", "XXL"],
+          "active": true
+        },
+        {
+          "id": "Barbari-printed-tee",
+          "brand": "Police Zebra",
+          "category": "T-shirts",
+          "name": "Barbari printed tee",
+          "description": "Authentic cotton with barbari print.",
+          "priceGhs": 130,
+          "imageId": "babari",
+          "galleryImageIds": ["babari", "babari", "babari", "babari"],
+          "colors": ["Navy", "Black", "White", "Grey", "Cream", "Champagne"],
+          "sizes": ["S", "M", "L", "XL", "XXL"],
+          "active": true
+        },
+        {
+          "id": "Barbari-printed-tee-logo",
+          "brand": "Police Zebra",
+          "category": "T-Shirts",
+          "name": "Barbari print tee with logo",
+          "description": "Very sleek and authentic",
+          "priceGhs": 130,
+          "imageId": "barbariprint",
+          "galleryImageIds": ["barbariprint", "barbariprint", "barbariprint", "barbariprint"],
+          "colors": ["Navy", "Black", "White", "Grey", "Cream", "Champagne"],
+          "sizes": ["S", "M", "L", "XL", "XXL"],
+          "active": true
+        }
+      ]
+    },
+    {
+      "id": "hoodies",
+      "label": "Hoodies",
+      "products": [
+        {
+          "id": "essential-hoodie",
+          "brand": "Police Zebra",
+          "category": "Hoodies",
+          "name": "Essential unisex hoodie",
+          "description": "Sleek cotton, made to be shared.",
+          "priceGhs": 280,
+          "badge": "Bestseller",
+          "imageId": "unisexhoodie",
+          "galleryImageIds": ["unisexhoodie", "unisexhoodie", "unisexhoodie", "unisexhoodie"],
+          "colors": ["Navy", "Black", "White", "Grey", "Cream", "Champagne"],
+          "sizes": ["S", "M", "L", "XL", "XXL"],
+          "active": true
+        },
+        {
+          "id": "essential-hoodie-jacket",
+          "brand": "Police Zebra",
+          "category": "Hoodies",
+          "name": "Hoodie jacket",
+          "description": "Sleek cotton, made to be shared",
+          "priceGhs": 280,
+          "imageId": "jacket",
+          "galleryImageIds": ["jacket", "jacket", "jacket", "jacket"],
+          "colors": ["Navy", "Black", "White", "Grey", "Cream", "Champagne"],
+          "sizes": ["S", "M", "L", "XL", "XXL"],
+          "active": true
+        },
+        {
+          "id": "essential-hoodie-pants",
+          "brand": "Police Zebra",
+          "category": "Hoodies",
+          "name": "Hoodie Pants",
+          "description": "Sleek cotton, made to be shared",
+          "priceGhs": 280,
+          "imageId": "pants",
+          "galleryImageIds": ["pants", "pants", "pants", "pants"],
+          "colors": ["Navy", "Black", "White", "Grey", "Cream", "Champagne"],
+          "sizes": ["S", "M", "L", "XL", "XXL"],
+          "active": true
+        }
+      ]
+    },
+    {
+      "id": "flipflops",
+      "label": "Flipflops",
+      "products": [
+        {
+          "id": "everyday-flipflops",
+          "brand": "Police Zebra",
+          "category": "Flipflops",
+          "name": "Everyday flipflops",
+          "description": "Lightweight everyday footwear.",
+          "priceGhs": 130,
+          "imageId": "flips1",
+          "galleryImageIds": ["flips1", "flips1", "flips1", "flips1"],
+          "colors": ["Navy", "Black", "White", "Grey", "Cream", "Champagne"],
+          "sizes": ["37", "38", "39", "40", "41", "42", "43"],
+          "active": true
+        },
+        {
+          "id": "classic-flipflops",
+          "brand": "Police Zebra",
+          "category": "Flipflops",
+          "name": "Classic flipflops",
+          "description": "Lightweight everyday footwear.",
+          "priceGhs": 130,
+          "imageId": "flips2",
+          "galleryImageIds": ["flips2", "flips2", "flips2", "flips2"],
+          "colors": ["Navy", "Black", "White", "Grey", "Cream", "Champagne"],
+          "sizes": ["37", "38", "39", "40", "41", "42", "43"],
+          "active": true
+        }
+      ]
+    },
+    {
+      "id": "slippers",
+      "label": "Slippers",
+      "products": [
+        {
+          "id": "everyday-slippers",
+          "brand": "Police Zebra",
+          "category": "Slippers",
+          "name": "Everyday slippers",
+          "description": "Soft, comfortable indoor footwear.",
+          "priceGhs": 150,
+          "imageId": "slippers",
+          "galleryImageIds": ["slippers", "slippers", "slippers", "slippers"],
+          "colors": ["Navy", "Black", "White", "Grey", "Cream", "Champagne"],
+          "sizes": ["37", "38", "39", "40", "41", "42", "43"],
+          "active": true
+        }
+      ]
+    },
+    {
+      "id": "shorts",
+      "label": "Shorts",
+      "products": [
+        {
+          "id": "relaxed-denim-shorts",
+          "brand": "Police Zebra",
+          "category": "Shorts",
+          "name": "Relaxed denim shorts",
+          "description": "Washed denim with a loose, easy fit.",
+          "priceGhs": 160,
+          "oldPriceGhs": 200,
+          "imageId": "short1",
+          "galleryImageIds": ["short1", "short1", "short1", "short1"],
+          "colors": ["Navy", "Black", "White", "Grey", "Cream", "Champagne"],
+          "sizes": ["S", "M", "L", "XL", "XXL"],
+          "active": true
+        },
+        {
+          "id": "weekend-shorts",
+          "brand": "Police Zebra",
+          "category": "Shorts",
+          "name": "Weekend shorts",
+          "description": "Breathable cotton with an elastic waist.",
+          "priceGhs": 150,
+          "imageId": "beach",
+          "galleryImageIds": ["beach", "beach", "beach", "beach"],
+          "colors": ["Navy", "Black", "White", "Grey", "Cream", "Champagne"],
+          "sizes": ["S", "M", "L", "XL", "XXL"],
+          "active": true
+        }
+      ]
+    },
+    {
+      "id": "boxers",
+      "label": "Boxers",
+      "products": [
+        {
+          "id": "Police 1983 Men Boxer",
+          "brand": "Police Zebra",
+          "category": "Boxers",
+          "name": "Police 1983 Men Boxer",
+          "description": "Premium cotton boxer brief with elastic waistband.",
+          "priceGhs": 55,
+          "imageId": "menbox1",
+          "galleryImageIds": ["menbox1", "menbox1", "menbox1", "menbox1"],
+          "colors": ["Navy", "Black", "White", "Grey", "Cream", "Champagne"],
+          "sizes": ["S", "M", "L", "XL", "XXL"],
+          "active": true
+        },
+        {
+          "id": "Police Max",
+          "brand": "Police Zebra",
+          "category": "Boxers",
+          "name": "Police Max",
+          "description": "Pack of 3 premium boxers in assorted colors.",
+          "priceGhs": 65,
+          "badge": "New",
+          "imageId": "menbox2",
+          "galleryImageIds": ["menbox2", "menbox2", "menbox2", "menbox2"],
+          "colors": ["Navy", "Black", "White", "Grey", "Cream", "Champagne"],
+          "sizes": ["S", "M", "L", "XL", "XXL"],
+          "active": true
+        },
+        {
+          "id": "Police Platinum Boxer",
+          "brand": "Police Zebra",
+          "category": "Boxers",
+          "name": "Police Platinum Boxer",
+          "description": "Pack of 3 premium boxers in assorted colors.",
+          "priceGhs": 99,
+          "imageId": "menbox3",
+          "galleryImageIds": ["menbox3", "menbox3", "menbox3", "menbox3"],
+          "colors": ["Navy", "Black", "White", "Grey", "Cream", "Champagne"],
+          "sizes": ["S", "M", "L", "XL", "XXL"],
+          "active": true
+        }
+      ]
+    },
+    {
+      "id": "lacoste",
+      "label": "Lacoste",
+      "products": [
+        {
+          "id": "Authentic Police Lacoste",
+          "brand": "Police Zebra",
+          "category": "Lacoste",
+          "name": "Authentic Police Lacoste",
+          "description": "Smart everyday polo with a clean collar.",
+          "priceGhs": 220,
+          "imageId": "lacoste1",
+          "galleryImageIds": ["lacoste1", "lacoste1", "lacoste1", "lacoste1"],
+          "colors": ["Navy", "Black", "White", "Grey", "Cream", "Champagne"],
+          "sizes": ["S", "M", "L", "XL", "XXL"],
+          "active": true
+        },
+        {
+          "id": "Premium Police Lacoste",
+          "brand": "Police Zebra",
+          "category": "Lacoste",
+          "name": "Premium Police Lacoste",
+          "description": "Soft pique fabric with a polished finish.",
+          "priceGhs": 260,
+          "badge": "New",
+          "imageId": "lacoste2",
+          "galleryImageIds": ["lacoste2", "lacoste2", "lacoste2", "lacoste2"],
+          "colors": ["Navy", "Black", "White", "Grey", "Cream", "Champagne"],
+          "sizes": ["S", "M", "L", "XL", "XXL"],
+          "active": true
+        }
+      ]
+    },
+    {
+      "id": "socks",
+      "label": "Socks",
+      "products": [
+        {
+          "id": "striped-sport-socks",
+          "brand": "Police Zebra",
+          "category": "Socks",
+          "name": "Stripes sport socks",
+          "description": "Soft cotton blend in classic colours.",
+          "priceGhs": 60,
+          "imageId": "socks1",
+          "galleryImageIds": ["socks1", "socks1", "socks1", "socks1"],
+          "colors": ["Navy", "Black", "White", "Grey", "Cream", "Champagne"],
+          "sizes": ["S/M", "L/XL"],
+          "active": true
+        },
+        {
+          "id": "crew-socks-3-pack",
+          "brand": "Police Zebra",
+          "category": "Socks",
+          "name": "Crew Socks",
+          "description": "Cushioned heel and arch support",
+          "priceGhs": 45,
+          "imageId": "socks2",
+          "galleryImageIds": ["socks2", "socks2", "socks2", "socks2"],
+          "colors": ["Navy", "Black", "White", "Grey", "Cream", "Champagne"],
+          "sizes": ["S/M", "L/XL"],
+          "active": true
+        }
+      ]
+    }
+  ]
+}
